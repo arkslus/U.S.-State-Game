@@ -29,10 +29,12 @@ while len(guessed_states) < 50:
 
     # exit the game if the user enters "exit"
     if answer_state == "Exit":
-        missing_states = []
-        for state in all_states:
-            if state not in guessed_states:
-                missing_states.append(state)
+        # get the missing states using list comprehension
+        missing_states = [state for state in all_states if state not in guessed_states]
+        # missing_states = []
+        # for state in all_states:
+        #     if state not in guessed_states:
+        #         missing_states.append(state)
 
         # save the missing states to a new csv file
         new_data = pd.DataFrame(missing_states)
@@ -49,3 +51,10 @@ while len(guessed_states) < 50:
         turt.goto(state_data["x"].item(), state_data["y"].item())
         turt.write(answer_state, align="center", font=("Arial", 8, "normal"))
         print(f"{answer_state} is correct!")
+
+    else:
+        print("Sorry, that's not a state.")
+
+    # print a message when the game is over
+    if len(guessed_states) == 50:
+        print("Congratulations! You've guessed all 50 states correctly.")
